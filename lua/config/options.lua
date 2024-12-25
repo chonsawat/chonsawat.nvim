@@ -1,7 +1,7 @@
 
 -- General
 vim.opt.number = true -- line number
-vim.opt.relativenumber = ture -- relative line number
+vim.opt.relativenumber = true -- relative line number
 vim.opt.numberwidth = 2
 vim.opt.signcolumn = "yes"
 vim.opt.wrap = false
