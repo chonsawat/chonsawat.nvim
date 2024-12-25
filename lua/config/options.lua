@@ -1,7 +1,7 @@
 
 -- General
 vim.opt.number = true -- line number
-vim.opt.relativenumber = true -- relative line number
+vim.opt.relativenumber = false -- relative line number
 vim.opt.numberwidth = 2
 vim.opt.signcolumn = "yes"
 vim.opt.wrap = false
@@ -25,8 +25,8 @@ vim.opt.conceallevel = 0 -- show concealedd characters
 vim.opt.fileencoding = "utf-8"
 vim.opt.mouse = "a" -- enable mouse support
 vim.opt.showmode = false -- hide mode display
-vim.opt.splitbelow = true 
-vim.opt.splitright = true 
+vim.opt.splitbelow = true
+vim.opt.splitright = true
 vim.opt.termguicolors = true
 vim.opt.timeoutlen = 1000 -- 1 sec waiting mapped
 vim.opt.undofile = true -- enable persistent undo
