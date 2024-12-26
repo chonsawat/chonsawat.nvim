@@ -11,6 +11,9 @@ vim.keymap.set("n", "<C-l>", "<C-w><C-l>", {desc = "Move foucus to the right win
 vim.keymap.set("n", "<C-j>", "<C-w><C-j>", {desc = "Move foucus to the lower window"})
 vim.keymap.set("n", "<C-k>", "<C-w><C-k>", {desc = "Move foucus to the upper window"})
 
+vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, {desc = "Diagnostic goto [Prev]"})
+vim.keymap.set("n", "]d", vim.diagnostic.goto_next, {desc = "Diagnostic goto [Next]"})
+
 vim.keymap.set("n", "<leader>wv", ":vsplit<cr>", {desc = "[W]indow Split [V]ertical"})
 vim.keymap.set("n", "<leader>wh", ":split<cr>", {desc = "[W]indow Split [H]orizontal"})
 
