@@ -20,4 +20,5 @@ vim.keymap.set("n", "<leader>wh", ":split<cr>", {desc = "[W]indow Split [H]orizo
 vim.keymap.set("v", "<", "<gv", {desc = "Indent left in visual mode"})
 vim.keymap.set("v", ">", ">gv", {desc = "Indent right in visual mode"})
 
-
+vim.keymap.set({"v", "n"}, "..", ":cnext<cr>", {desc = "Quick list [N]ext"})
+vim.keymap.set({"v", "n"}, ",,", ":cprevious<cr>", {desc = "Quick list [P]revious"})
