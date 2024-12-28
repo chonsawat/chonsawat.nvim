@@ -22,3 +22,11 @@ vim.keymap.set("v", ">", ">gv", {desc = "Indent right in visual mode"})
 
 vim.keymap.set({"v", "n"}, "..", ":cnext<cr>", {desc = "Quick list [N]ext"})
 vim.keymap.set({"v", "n"}, ",,", ":cprevious<cr>", {desc = "Quick list [P]revious"})
+
+vim.keymap.set({"n"}, "<leader>sv", ":source $MYVIMRC<CR>", {desc = "Reload config nvim"})
+vim.keymap.set({"n", "v", "i"}, "<C-s>", "<cmd>w!<CR>", {desc = "Reload config nvim"})
+
+-- Required Noice and Telescope
+vim.keymap.set({"n"}, "<leader>st", function()
+    require('telescope').extensions.notify.notify()
+end, {desc = "Reload config nvim"})
