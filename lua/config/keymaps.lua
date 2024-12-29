@@ -15,7 +15,7 @@ vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>", {desc = "Remove search highl
 vim.keymap.set("t", "<Esc><Esc>", "<C-\\><C-n>", {desc = "Exit terminal mode"})
 
 -- Paste without clear lastest copied
-Map({"n", 'v', "i"}, "\"_dP", {desc = "Paste without clear (lastest copied)"})
+Map({"n", 'v', "i"}, "<leader>p", "\"_dP", {desc = "Paste without clear (lastest copied)"})
 
 -- Window navigation
 vim.keymap.set("n", "<C-h>", "<C-w><C-h>", {desc = "Move foucus to the left window"})
