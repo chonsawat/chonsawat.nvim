@@ -68,5 +68,24 @@ vim.keymap.set({"n"}, "<leader>st", function()
     require('telescope').extensions.notify.notify()
 end, {desc = "Reload config nvim"})
 
+-- Java call via maven
+vim.keymap.set("n", "<leader>Jp", function()
+    local user_input = vim.fn.input("Enter input: ")
+    vim.cmd(string.format([[echo "Running (%s) ..."]], user_input))
 
+    if user_input ~= "" then 
+        -- vim.cmd(string.format([[terminal mvn clean install && mvn exec:java -dexec.mainclass="%s"]], user_input))
+        local exists = vim.fn["floaterm#terminal#get_bufnr"]('java-term')
+
+        if exists == -1 then
+            vim.cmd('FloatermNew --name=java-term')
+        else
+            vim.cmd [[FloatermShow --name=java-term]]
+        end
+        vim.cmd(string.format([[FloatermSend --name=java-term mvn clean install && mvn exec:java -Dexec.mainClass="%s"]], user_input))
+    else
+        print("Skipping execution because input is empty.")
+    end
+
+end, {desc = "Run Maven Project"})
 
