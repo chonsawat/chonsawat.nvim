@@ -36,7 +36,7 @@ return {
                 local exists = vim.fn["floaterm#terminal#get_bufnr"]('java-term')
 
                 if exists == -1 then
-                    vim.cmd(string.format('FloatermNew --name=java-term --position=%s'), position)
+                    vim.cmd(string.format('FloatermNew --name=java-term --position=%s', position))
                 else
                     vim.cmd [[FloatermShow --name=java-term]]
                 end
