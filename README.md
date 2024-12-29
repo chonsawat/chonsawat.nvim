@@ -1,5 +1,25 @@
 # Personal Neovim
 
+## Requirement
+- Neovim in `WSL2` or `Linux` or `Mac` Distro
+- must have `wget`, `gcc`, `libgcc`, `unzip`, `python3`, `jdk` for using this repository.
+
+## Installation
+Backup `~/.config/nvim` into `~/.config/nvim.bak`
+```sh
+mv ~/.config/nvim{,.bak}
+```
+
+Install my Neovim template
+```sh
+git clone https://github.com/chonsawat/chonsawat.nvim.git ~/.config/nvim
+```
+
+Start Nvim (Done)
+```
+nvim
+```
+
 ## References
 - [https://github.com/unknownkoder/Java-FullStack-NeoVim-Configuration](https://github.com/unknownkoder/Java-FullStack-NeoVim-Configuration)
 
