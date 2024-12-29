@@ -82,7 +82,9 @@ vim.keymap.set("n", "<leader>Jp", function()
         else
             vim.cmd [[FloatermShow --name=java-term]]
         end
-        vim.cmd(string.format([[FloatermSend --name=java-term mvn clean install && mvn exec:java -Dexec.mainClass="%s"]], user_input))
+        vim.cmd(string.format([[FloatermSend --name=java-term mvn clean install]], user_input))
+        -- vim.cmd [[FloatermSend --name=java-term clear]]
+        vim.cmd(string.format([[FloatermSend --name=java-term mvn exec:java -Dexec.mainClass="%s" -q]], user_input))
     else
         print("Skipping execution because input is empty.")
     end
