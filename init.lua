@@ -26,9 +26,9 @@ local opts = {
     }
 }
 
--- Loading configuration
-require("config.options")
-require("config.keymaps")
+-- Loading core configuration
+require("core.options")
+require("core.keymaps")
 require("config.autocmds")
 
 -- Lazy Plugins
