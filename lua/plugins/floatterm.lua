@@ -25,6 +25,12 @@ return {
         vim.keymap.set({'t'}, '<A-k>', '<cmd>FloatermKill<CR>', {desc="Floating Terminal [K]ill"})
 
         ---------------------------------------------------
+        --  Run Rust
+        ---------------------------------------------------
+        vim.keymap.set({'n', 't'}, '<leader>rs', '<cmd>FloatermSend nix develop ~/flake/\\#rust<CR>', {desc="Rust Environment"})
+        vim.keymap.set({'n', 't'}, '<leader>rr', '<cmd>FloatermSend cargo run<CR>', {desc="Run Rust"})
+
+        ---------------------------------------------------
         --  Run Java maven
         ---------------------------------------------------
         vim.keymap.set("n", "<leader>Jp", function()

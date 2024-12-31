@@ -50,6 +50,9 @@ return {
                     notify = true,
                     mini = true,
                 },
+                options = {
+                    colorscheme = "cyberdream"
+                }
             })
             vim.cmd.colorscheme "cyberdream"
         end,
