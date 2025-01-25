@@ -1,8 +1,22 @@
 # Personal Neovim
 
 ## Requirement
+### WSL
 - Neovim in `WSL2` or `Linux` or `Mac` Distro
 - must have `wget`, `gcc`, `libgcc`, `unzip`, `python3`, `jdk` for using this repository.
+
+### Windows native (Winget)
+Install chocolatey
+
+```
+winget install --accept-source-agreements chocolatey.chocolatey
+```
+
+Chocolately install necessary package
+```
+choco install -y neovim git ripgrep wget fd unzip gzip mingw make
+```
+
 
 ## Installation
 Backup `~/.config/nvim` into `~/.config/nvim.bak`
