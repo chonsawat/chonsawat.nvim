@@ -8,11 +8,6 @@ lspconfig.lua_ls.setup({
     capabilities = capabilities,
 })
 
--- setup the typescript language server
-lspconfig.ts_ls.setup({
-    capabilities = capabilities,
-})
-
 -- Set vim motion for <Space> + c + h to show code documentation about the code the cursor is currently over if available
 vim.keymap.set("n", "<leader>ch", vim.lsp.buf.hover, { desc = "[C]ode [H]over Documentation" })
 -- Set vim motion for <Space> + c + d to go where the code/variable under the cursor was defined
