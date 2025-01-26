@@ -172,10 +172,7 @@ function config.nvimTree()
 end
 
 function config.mini()
-
-  require('mini.trailspace').setup({only_in_normal_buffers = true})
   require('mini.cursorword').setup()
-  require('mini.indentscope').setup()
   require('mini.tabline').setup()
   require('mini.pairs').setup()
   require('mini.splitjoin').setup()
@@ -230,6 +227,32 @@ function config.noice()
       inc_rename = false,                   -- enables an input dialog for inc-rename.nvim
       lsp_doc_border = false,               -- add a border to hover docs and signature help
     },
+  })
+end
+
+function config.mason()
+  local on_attach_handler = function(server_name)
+    print("Mason setup: ", server_name)
+
+    vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, {desc = "LSP rename"})
+    vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, {desc = "LSP code action"})
+    vim.keymap.set("n", "gd", vim.lsp.buf.definition, {desc = "LSP Definition"})
+    vim.keymap.set("n", "gi", vim.lsp.buf.implementation, {desc = "LSP Implementation"})
+    vim.keymap.set("n", "gr", require("telescope.builtin").lsp_references, {desc = "LSP References"})
+    vim.keymap.set("n", "K", vim.lsp.buf.hover, {desc = "LSP Hover"})
+  end
+
+  require("mason").setup({})
+  require("mason-lspconfig").setup({
+    ensure_installed = {"lua_ls", "jdtls"},
+    handlers = {
+      function(server_name)
+        print("Setting up", server_name)
+        require("lspconfig")[server_name].setup({
+          on_attach = on_attach_handler(server_name)
+        })
+      end,
+    }
   })
 end
 

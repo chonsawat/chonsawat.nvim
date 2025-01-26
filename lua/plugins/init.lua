@@ -12,7 +12,7 @@ return {
   {                      
     'folke/which-key.nvim',
     event = 'VimEnter', 
-    opts = options.whichkey()
+    opts = options.whichkey
   },
   {
     "scottmckendry/cyberdream.nvim",
@@ -60,5 +60,37 @@ return {
       "rcarriga/nvim-notify",
     },
     config = config.noice
+  },
+  {
+    "folke/snacks.nvim",
+    priority = 100,
+    version = '*',
+    lazy = false,
+    ---@type snacks.Config
+    opts = options.snacks,
+  },
+  {
+    "neovim/nvim-lspconfig",
+    dependencies = { 
+      { "folke/lazydev.nvim", ft = "lua", opts = { library = { {path = "${3rd}/luv/library", words={"vim%.uv"}} } } },
+      "hrsh7th/nvim-cmp",
+      'hrsh7th/cmp-nvim-lsp',
+      'hrsh7th/cmp-buffer',
+      'hrsh7th/cmp-path',
+      'hrsh7th/cmp-cmdline',
+      'L3MON4D3/LuaSnip',
+      'saadparwaiz1/cmp_luasnip'
+    },
+  },
+  {
+    "williamboman/mason-lspconfig.nvim",
+    dependencies = {
+      "williamboman/mason.nvim",
+      "neovim/nvim-lspconfig",
+    },
+    config = config.mason
+  },
+  {
+    "nvim-treesitter/nvim-treesitter",
   },
 }
