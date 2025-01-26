@@ -1,24 +1,5 @@
 local config = {}
 
-function config.autopairs()
-  -- Call the autopairs setup function to configure how we want autopairs to work
-  require 'nvim-autopairs'.setup({
-    check_ts = true,
-    ts_config = {
-      lua = { "string" },
-      javascript = { "template_string" },
-      java = false,
-    }
-  })
-
-  -- Get access to auto pairs completion and cmp plugins
-  local cmp_autopairs = require("nvim-autopairs.completion.cmp")
-  local cmp = require("cmp")
-
-  -- Whenever we accept a choice from an autocompletion, make sure that any pairs are automatically closed
-  cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
-end
-
 function config.lualine()
   -- call the setup function with properties to define how our lualine will look
   require("lualine").setup({
@@ -132,6 +113,16 @@ function config.telescope()
   vim.keymap.set('n', '<leader>fogf', '<cmd>Telescope git_files<CR>', { desc = "Git track file list", noremap = false })
   vim.keymap.set('n', '<leader>fogs', '<cmd>Telescope git_stash<CR>', { desc = "Git stash list", noremap = false })
   vim.keymap.set('n', '<leader>fogt', '<cmd>Telescope git_status<CR>', { desc = "Git status list", noremap = false })
+
+  -- Extension
+  telescopeNotify()
+end
+
+function telescopeNotify()
+  require("telescope").load_extension("notify")
+
+  -- Keymap
+  vim.keymap.set('n', '<leader>fn', "<cmd>Telescope notify<CR>", { desc = "Color Scheme" })
 end
 
 function config.telescopeMacro()
@@ -165,6 +156,81 @@ function config.oil()
 
   -- Keymap
   vim.keymap.set("n", "<leader>-", "<cmd>Oil<cr>", { desc = "Oil neovim", noremap = false })
+end
+
+function config.nvimTree()
+  require("nvim-tree").setup({
+    view = {
+      width = 30,
+    },
+    filters = {
+      dotfiles = true,
+    }
+  })
+
+  vim.keymap.set("n", "<leader>tf", "<cmd>NvimTreeFocus<CR>", {desc = "NvimTree Focus"})
+end
+
+function config.mini()
+
+  require('mini.trailspace').setup({only_in_normal_buffers = true})
+  require('mini.cursorword').setup()
+  require('mini.indentscope').setup()
+  require('mini.tabline').setup()
+  require('mini.pairs').setup()
+  require('mini.splitjoin').setup()
+  require('mini.surround').setup()
+  require('mini.completion').setup()
+  require('mini.git').setup()
+  require('mini.jump2d').setup()
+  require('mini.diff').setup()
+
+  mini_animate()
+end
+
+function mini_animate()
+  local animate = require('mini.animate')
+  animate.setup({
+    cursor = {
+      -- Animate for 25 milliseconds with linear easing
+      timing = animate.gen_timing.linear({ duration = 25, unit = 'total' }),
+
+      -- Animate with shortest line for any cursor move
+      path = animate.gen_path.line({
+        predicate = function() return true end,
+      }),
+    }
+  })
+end
+
+function config.notify()
+  require("notify").setup({
+    render = "default",
+    stages = "static",
+    fps = 30,
+    timeout = 1000, -- 1 seconds
+  })
+end
+
+function config.noice()
+  require("noice").setup({
+    lsp = {
+      -- override markdown rendering so that **cmp** and other plugins use **Treesitter**
+      override = {
+        ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
+        ["vim.lsp.util.stylize_markdown"] = true,
+        ["cmp.entry.get_documentation"] = true,         -- requires hrsh7th/nvim-cmp
+      },
+    },
+    -- you can enable a preset for easier configuration
+    presets = {
+      bottom_search = true,                 -- use a classic bottom cmdline for search
+      command_palette = true,               -- position the cmdline and popupmenu together
+      long_message_to_split = true,         -- long messages will be sent to a split
+      inc_rename = false,                   -- enables an input dialog for inc-rename.nvim
+      lsp_doc_border = false,               -- add a border to hover docs and signature help
+    },
+  })
 end
 
 return config

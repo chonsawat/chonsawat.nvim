@@ -3,14 +3,6 @@ local options = require("plugins.options")
 
 return {
   {
-    "windwp/nvim-autopairs",
-    event = { "InsertEnter" },
-    dependencies = {
-      "hrsh7th/nvim-cmp",
-    },
-    config = config.autopairs
-  },
-  {
     "nvim-lualine/lualine.nvim",
     dependencies = {
       "nvim-tree/nvim-web-devicons",
@@ -43,5 +35,30 @@ return {
     dependencies = { "nvim-tree/nvim-web-devicons" }, -- use if you prefer nvim-web-devicons
     lazy = false,
     config = config.oil
-  }
+  },
+  {
+    'nvim-tree/nvim-tree.lua',
+    dependencies = { "nvim-tree/nvim-web-devicons" },
+    lazy = false,
+    config = config.nvimTree
+  },
+  { 
+    'echasnovski/mini.nvim', 
+    version = '*',
+    config = config.mini
+  },
+  { 
+    'rcarriga/nvim-notify', 
+    version = '*',
+    config = config.notify
+  },
+  { 
+    'folke/noice.nvim', 
+    version = '*',
+    dependencies = {
+      "MunifTanjim/nui.nvim",
+      "rcarriga/nvim-notify",
+    },
+    config = config.noice
+  },
 }

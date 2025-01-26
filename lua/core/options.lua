@@ -1,3 +1,9 @@
+-- disable netrw at the very start of your init.lua
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+
+-- optionally enable 24-bit colour
+vim.opt.termguicolors = true
 
 -- General
 vim.opt.number = true -- line number
@@ -17,8 +23,6 @@ vim.opt.smartindent = true
 vim.opt.breakindent = true
 
 -- Behaviors
-vim.g.loaded_netrw = 1
-vim.g.loaded_netrwPlugin = 1
 vim.opt.backup = false
 vim.opt.clipboard = "unnamedplus" -- enable clipboard access
 vim.opt.conceallevel = 0 -- show concealedd characters
@@ -27,7 +31,6 @@ vim.opt.mouse = "a" -- enable mouse support
 vim.opt.showmode = false -- hide mode display
 vim.opt.splitbelow = true
 vim.opt.splitright = true
-vim.opt.termguicolors = true
 vim.opt.timeoutlen = 1000 -- 1 sec waiting mapped
 vim.opt.undofile = true -- enable persistent undo
 vim.opt.updatetime = 100 -- completion faster
