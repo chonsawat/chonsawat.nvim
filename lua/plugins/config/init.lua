@@ -179,7 +179,7 @@ function config.mini()
   require('mini.surround').setup()
   require('mini.completion').setup()
   require('mini.git').setup()
-  require('mini.jump2d').setup()
+  -- require('mini.jump2d').setup()
   require('mini.diff').setup()
 
   mini_animate()
@@ -189,8 +189,8 @@ function mini_animate()
   local animate = require('mini.animate')
   animate.setup({
     cursor = {
-      -- Animate for 25 milliseconds with linear easing
-      timing = animate.gen_timing.linear({ duration = 25, unit = 'total' }),
+      -- Animate for 10 milliseconds with linear easing
+      timing = animate.gen_timing.linear({ duration = 10, unit = 'total' }),
 
       -- Animate with shortest line for any cursor move
       path = animate.gen_path.line({
@@ -202,6 +202,7 @@ end
 
 function config.notify()
   require("notify").setup({
+    merge_duplicates = true,
     render = "default",
     stages = "static",
     fps = 30,
@@ -242,7 +243,7 @@ function config.mason()
     vim.keymap.set("n", "K", vim.lsp.buf.hover, {desc = "LSP Hover"})
   end
 
-  require("mason").setup({})
+  require("mason").setup()
   require("mason-lspconfig").setup({
     ensure_installed = {"lua_ls", "jdtls"},
     handlers = {
@@ -254,6 +255,118 @@ function config.mason()
       end,
     }
   })
+end
+
+function config.floaterm()
+  local position = "bottomright"
+
+  ---------------------------------------------------
+  --  Hotkey Control
+  ---------------------------------------------------
+  vim.keymap.set({ 'n', 't' }, '<A-n>', function()
+      vim.cmd(string.format('FloatermNew --position=%s', position))
+  end, { desc = "Floating Terminal [N]ew" })
+
+  vim.keymap.set({ 'n', 't' }, '<A-]>', '<cmd>FloatermNext<CR>', { desc = "Floating Terminal [N]ext" })
+  vim.keymap.set({ 'n', 't' }, '<A-[>', '<cmd>FloatermPrev<CR>', { desc = "Floating Terminal [P]revious" })
+
+  vim.keymap.set({ 'n', 't' }, '<A-\\>', function()
+      local exists = vim.fn["floaterm#buflist#gather"]()[1]
+      if exists ~= nil then
+          vim.cmd [[FloatermToggle]]
+      else
+          vim.cmd(string.format('FloatermNew --position=%s', position))
+      end
+  end, { desc = "Floating Terminal [T]oggle" })
+  vim.keymap.set({ 't' }, '<A-k>', '<cmd>FloatermKill<CR>', { desc = "Floating Terminal [K]ill" })
+
+  ---------------------------------------------------
+  --  Run Rust
+  ---------------------------------------------------
+  vim.keymap.set({ 'n', 't' }, '<leader>rrs', '<cmd>FloatermSend nix develop ~/flake/\\#rust<CR>', { desc =
+  "Rust Environment" })
+  vim.keymap.set({ 'n', 't' }, '<leader>rrc', '<cmd>FloatermSend cargo run<CR>', { desc = "Run Rust" })
+
+  ---------------------------------------------------
+  --  Run Java maven
+  ---------------------------------------------------
+  vim.keymap.set("n", "<leader>rjp", function()
+      vim.cmd(string.format([[echo "Running (com.demo.App) ..."]]))
+
+      local exists = vim.fn["floaterm#terminal#get_bufnr"]('java-term')
+
+      if exists == -1 then
+          vim.cmd(string.format('FloatermNew --name=java-term --position=%s', position))
+      else
+          vim.cmd [[FloatermShow --name=java-term]]
+      end
+      vim.cmd(string.format([[FloatermSend --name=java-term mvn package ]]))
+      vim.cmd(string.format([[FloatermSend --name=java-term mvn exec:java -Dexec.mainClass="com.demo.App" -q]]))
+  end, { desc = "Run Maven Project" })
+
+
+  vim.keymap.set("n", "<leader>rjP", function()
+      local user_input = vim.fn.input("Enter input: ")
+      vim.cmd(string.format([[echo "Running (%s) ..."]], user_input))
+
+      if user_input ~= "" then
+          -- vim.cmd(string.format([[terminal mvn clean install && mvn exec:java -dexec.mainclass="%s"]], user_input))
+          local exists = vim.fn["floaterm#terminal#get_bufnr"]('java-term')
+
+          if exists == -1 then
+              vim.cmd(string.format('FloatermNew --name=java-term --position=%s', position))
+          else
+              vim.cmd [[FloatermShow --name=java-term]]
+          end
+          vim.cmd(string.format([[FloatermSend --name=java-term mvn package]], user_input))
+          vim.cmd(string.format([[FloatermSend --name=java-term mvn exec:java -Dexec.mainClass="%s" -q]], user_input))
+      else
+          print("Skipping execution because input is empty.")
+      end
+  end, { desc = "Run Maven Project" })
+
+  ---------------------------------------------------
+  --  Run Spring Boot
+  ---------------------------------------------------
+  vim.keymap.set("n", "<leader>rjS", function()
+      vim.cmd(string.format([[echo "Running (Springboot Application) ..."]]))
+
+      local exists = vim.fn["floaterm#terminal#get_bufnr"]('springboot-term')
+
+      if exists == -1 then
+          vim.cmd(string.format('FloatermNew --name=springboot-term --position=%s', position))
+      else
+          vim.cmd [[FloatermShow --name=springboot-term]]
+      end
+      vim.cmd(string.format([[FloatermSend --name=springboot-term mvn spring-boot:run]]))
+  end, { desc = "Run Spring Boot Project" })
+end
+
+function config.neochord()
+  -- The setup config table shows all available config options with their default values:
+  require("neocord").setup({
+      -- General options
+      logo                = "auto",                 -- "auto" or url
+      logo_tooltip        = nil,                    -- nil or string
+      main_image          = "language",             -- "language" or "logo"
+      show_time           = true,                   -- Show the timer
+      global_timer        = false,                  -- if set true, timer won't update when any event are triggered
+
+      -- Rich Presence text options
+      editing_text        = "Editing %s",                     -- Format string rendered when an editable file is loaded in the buffer (either string or function(filename: string): string)
+      file_explorer_text  = "Browsing %s",                    -- Format string rendered when browsing a file explorer (either string or function(file_explorer_name: string): string)
+      git_commit_text     = "Committing changes",             -- Format string rendered when committing changes in git (either string or function(filename: string): string)
+      plugin_manager_text = "Managing plugins",               -- Format string rendered when managing plugins (either string or function(plugin_manager_name: string): string)
+      reading_text        = "Reading %s",                     -- Format string rendered when a read-only or unmodifiable file is loaded in the buffer (either string or function(filename: string): string)
+      workspace_text      = "Working on %s",                  -- Format string rendered when in a git repository (either string or function(project_name: string|nil, filename: string): string)
+      line_number_text    = "Line %s out of %s",              -- Format string rendered when `enable_line_number` is set to true (either string or function(line_number: number, line_count: number): string)
+      terminal_text       = "Using Terminal",                 -- Format string rendered when in terminal mode.
+  })
+end
+
+function config.leapnvim()
+  -- require('leap').create_default_mappings()
+  vim.keymap.set({'n', 'x'}, '<leader>s', '<Plug>(leap)')
 end
 
 return config

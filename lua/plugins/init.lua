@@ -9,9 +9,9 @@ return {
     },
     config = config.lualine
   },
-  {                      
+  {
     'folke/which-key.nvim',
-    event = 'VimEnter', 
+    event = 'VimEnter',
     opts = options.whichkey
   },
   {
@@ -21,7 +21,7 @@ return {
     config = config.cyberdream
   },
   {
-    'nvim-telescope/telescope.nvim', 
+    'nvim-telescope/telescope.nvim',
     tag = '0.1.8',
     dependencies = { 'nvim-lua/plenary.nvim' },
     config = config.telescope
@@ -93,4 +93,17 @@ return {
   {
     "nvim-treesitter/nvim-treesitter",
   },
+  {
+    "voldikss/vim-floaterm",
+    config = config.floaterm
+  },
+  {
+    "IogaMaster/neocord",
+    config = config.neochord
+  },
+  {
+    "ggandor/leap.nvim",
+    dependencies = {"tpope/vim-repeat"},
+    config = config.leapnvim
+  }
 }
